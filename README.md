@@ -1,8 +1,8 @@
+# stock_sorter.py 🗂️
+
 <img src="https://images.unsplash.com/photo-1717079556930-804fbc52e4fa?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="hero" width="100%" style="height:300px;object-fit:cover;display:block;" />
 
-# stock_sorter.py
-
-A Python script that looks at your images and puts them in folders based on what color they are. Groundbreaking stuff.
+A Python script that looks at your images and puts them in folders based on what color they are. Very groundbreaking stuff.
 
 ---
 
@@ -59,6 +59,16 @@ The script sorts images into these folders:
 | `RAINBOW` | Couldn't make up its mind. No single color owned more than 50% of the saturated pixels, so here it lives |
 
 Classification works by downsampling each image to 150×150, converting pixels to HSV, filtering out near-black, blown-out, and low-saturation pixels, then seeing which color bucket wins. If nothing dominates, it's a rainbow. If the whole thing is basically desaturated, it's monochrome.
+
+---
+
+## A word of warning
+
+The color sorting is math, not magic. It downsamples your image to a tiny thumbnail, runs some HSV arithmetic, and makes its best guess. This works surprisingly well most of the time, and then occasionally it will put a perfectly normal sunset photo in MONOCHROME or file a green forest shot under RAINBOW and you will have no idea why.
+
+This is not a bug. This is a statistical model making a judgment call on 22,500 pixels of heavily compressed image data. Sometimes it's wrong. Sometimes it's confidently, spectacularly wrong. A photo of a red barn at dusk might end up in ORANGE. A blue sky with a lot of clouds might land in MONOCHROME. An image that looks clearly purple to your human eyes might register as PINK because the hue was 319° and the cutoff is 320°.
+
+You can re-sort anything that ends up in the wrong place manually. That's what folders are for. Don't blame us, blame the HSV color space.
 
 ---
 
